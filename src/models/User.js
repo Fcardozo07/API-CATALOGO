@@ -27,6 +27,11 @@ export default class User extends Model {
             },
           },
         },
+        perfil: {
+          type: Sequelize.STRING(10),
+          defaultValue: "user",
+        },
+
         password_hash: {
           type: Sequelize.STRING,
           defaultValue: "",
@@ -36,7 +41,7 @@ export default class User extends Model {
           defaultValue: "",
           validate: {
             len: {
-              args: [6, 50],
+              args: [6, 200],
               msg: "Campo senha deve ter entre 6 e 50 caracteres",
             },
           },
