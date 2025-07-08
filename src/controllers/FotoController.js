@@ -2,7 +2,7 @@ import multer from 'multer';
 import multerConfig from '../config/multerConfig';
 
 import FotoUser from '../models/FotoUser';
-import User from '../models/User';
+
 
 
 
@@ -50,11 +50,11 @@ class FotoController {
 
       });
 
-      if (!foto) {
-        return res.status(404).json({ error: 'Foto não encontrada' });
-      }
+        if (!foto) {
+        return res.json([]);
+        }   
+        return res.json([foto]);
 
-      return res.json(foto);
     } catch (error) {
       return res.status(400).json({
         errors: error.errors ? error.errors.map((err) => err.message) : [error.message],
