@@ -7,6 +7,11 @@ export default class Acessorio extends Model {
         tipo: Sequelize.STRING,
         id_marca: Sequelize.INTEGER,
         id_modelo: Sequelize.INTEGER,
+        id_usuario: {
+        type: Sequelize.INTEGER,
+        allowNull: false, // ou true, se for opcional
+        }
+        ,
         id_console: {
             type: Sequelize.INTEGER,
             allowNull: true,

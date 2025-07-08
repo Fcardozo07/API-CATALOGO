@@ -10,6 +10,10 @@ export default class Jogo extends Model {
         valor: Sequelize.FLOAT,
         descricao: Sequelize.STRING,
         titulo: Sequelize.STRING,
+        id_usuario: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+          },
       },
       {
         sequelize,

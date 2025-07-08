@@ -1,4 +1,5 @@
 import Jogo from '../models/Jogo';
+import User from '../models/User';
 
 class JogoController {
   // Store
@@ -51,8 +52,8 @@ async index(req, res) {
           errors: ['Jogo não existe.']
         });
       }
-      const { id, titulo,  id_marca, descricao, valor, id_modelo } = jogoData;
-      return res.json({ id, titulo, id_modelo,  id_marca, descricao, valor });
+      const { id, titulo,  id_marca, descricao, valor, id_modelo, id_usuario } = jogoData;
+      return res.json({ id, titulo, id_modelo,  id_marca, descricao, valor, id_usuario });
     } catch (error) {
       console.error('Erro ao buscar Jogo:', error); // Log do erro
       return res.json(null);
@@ -61,6 +62,12 @@ async index(req, res) {
 
   // Update
   async update(req, res) {
+
+    const userExists = await User.findByPk(req.body.id_usuario);
+        if (!userExists) {
+        return res.status(400).json({ errors: ['Usuário não existe.'] });
+    }
+
     try {
       // Encontra a Console pelo ID passado na requisição
       const jogo = await Jogo.findByPk(req.params.id);
@@ -76,10 +83,10 @@ async index(req, res) {
       const novosDados = await jogo.update(req.body);
 
       // Extrai os campos desejados para retornar na resposta
-      const { id, titulo, id_modelo,  id_marca, descricao, valor } = novosDados;
+      const { id, titulo, id_modelo,  id_marca, descricao, valor, id_usuario } = novosDados;
 
       // Retorna a Console atualizada
-      return res.json({id, titulo, id_modelo,  id_marca, descricao, valor });
+      return res.json({id, titulo, id_modelo,  id_marca, descricao, valor, id_usuario });
     } catch (error) {
       // Em caso de erro, retorna um status 400 com uma mensagem de erro
       return res.status(400).json({

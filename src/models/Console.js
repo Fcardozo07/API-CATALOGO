@@ -9,6 +9,10 @@ export default class Console extends Model {
         id_modelo: Sequelize.INTEGER,
         valor: Sequelize.INTEGER,
         descricao: Sequelize.STRING,
+        id_usuario: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+          },
       },
       {
         sequelize,
