@@ -21,7 +21,11 @@ export default class FotoUser extends Model {
                    msg: "Campo não pode ser vazio"
                }
             }
-        }
+        },
+         id_usuario: { // <-- adiciona aqui!
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
         
       },
       {

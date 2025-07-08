@@ -16,16 +16,29 @@ class JogoController {
   }
 
   // Index
-  async index(req, res) {
-    try {
-      const jogos = await Jogo.findAll({ attributes: ['id','titulo',  'id_marca','id_modelo', 'descricao','valor'] }); // retorna todos os registros
-      return res.json(jogos);
-    } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : ['Erro desconhecido']
-      });
+// Index
+async index(req, res) {
+  try {
+    // Monta filtro dinâmico
+    const filtros = {};
+
+    if (req.query.id_usuario) {
+      filtros.id_usuario = req.query.id_usuario;
     }
+
+    const jogos = await Jogo.findAll({
+      where: filtros,
+      attributes: ['id', 'titulo', 'id_marca', 'id_modelo', 'descricao', 'valor', 'id_usuario'],
+    });
+
+    return res.json(jogos);
+  } catch (error) {
+    return res.status(400).json({
+      errors: error.errors ? error.errors.map((err) => err.message) : ['Erro desconhecido'],
+    });
   }
+}
+
 
   // Show
   async show(req, res) {

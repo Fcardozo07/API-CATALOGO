@@ -4,6 +4,7 @@ class AcessorioController {
   // Store
   async store(req, res) {
     try {
+
       console.log('Dados recebidos:', req.body); // Log dos dados recebidos
       const novoAcessorio = await Acessorio.create(req.body);
       return res.json(novoAcessorio);
@@ -18,7 +19,12 @@ class AcessorioController {
   // Index
   async index(req, res) {
     try {
-      const acessorios = await Acessorio.findAll({ attributes: ['id','tipo', 'id_modelo', 'id_marca', 'descricao','valor'] }); // retorna todos os registros
+            const filtros = {};
+
+    if (req.query.id_usuario) {
+      filtros.id_usuario = req.query.id_usuario;
+    }
+      const acessorios = await Acessorio.findAll({ attributes: ['id','tipo', 'id_modelo', 'id_marca', 'descricao','valor', id_usuario] }); // retorna todos os registros
       return res.json(acessorios);
     } catch (error) {
       return res.status(400).json({
